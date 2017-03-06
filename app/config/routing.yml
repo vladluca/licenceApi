@@ -1,3 +1,7 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+cars:
+    type:     rest
+    host:     rent-api.local
+    resource: RentApiBundle\Controller\CarsController
