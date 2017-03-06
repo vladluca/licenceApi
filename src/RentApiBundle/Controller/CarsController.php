@@ -2,7 +2,6 @@
 
 namespace RentApiBundle\Controller;
 
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
