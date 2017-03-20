@@ -2,3 +2,7 @@ services:
 #    rent_api.example:
 #        class: RentApiBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+  rent_api.cars_manager:
+      class: RentApiBundle\Manager\CarsManager
+      arguments:
+          - '@doctrine.orm.entity_manager'

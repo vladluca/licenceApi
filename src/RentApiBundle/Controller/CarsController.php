@@ -2,10 +2,11 @@
 
 namespace RentApiBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class CarsController
+class CarsController extends Controller
 {
     public function getCarsAction()
     {
@@ -25,7 +26,11 @@ class CarsController
     {
         $parameter = $request->request->get('parameter');
 
-        return new JsonResponse(array('data' => 'post'), 200, array(
+        $carsManager = $this->get('rent_api.cars_manager');
+
+        $cars = $carsManager->searchCars();
+
+        return new JsonResponse($cars, 200, array(
             'Access-Control-Allow-Origin' => '*'
         ));
     }
