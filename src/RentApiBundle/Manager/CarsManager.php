@@ -39,6 +39,22 @@ class CarsManager
 
         foreach ($cars as $car) {
             $result['data']['results'][] = array(
+                'type' => 'CAR_SHARING',
+                'start' => array(
+                    'date' => new \DateTime(),
+                    'coordinates' => array(
+                        'latitude' => $car->getParking()->getLatitude(),
+                        'longitude' => $car->getParking()->getLongitude()
+                    ),
+                    'address' => array(
+                        'streetNumber' => $car->getParking()->getStreetNumber(),
+                        'streetName' => $car->getParking()->getStreetName(),
+                        'city' => $car->getParking()->getCity(),
+                        'postalCode' => $car->getParking()->getPostalCode(),
+                        'country' => $car->getParking()->getCountry(),
+                        'formattedAddress' => $car->getParking()->getFormattedAddress(),
+                    )
+                ),
                 'vehicle' => array(
                     'id' => $car->getId(),
                     'brand' => $car->getBrand(),
