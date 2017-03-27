@@ -26,6 +26,13 @@ class Car
      */
     protected $id;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Parking", inversedBy="cars")
+     * @ORM\JoinColumn(name="parking_id", referencedColumnName="id")
+     */
+    protected $parking;
+
     /**
      * @var string
      *
@@ -130,6 +137,25 @@ class Car
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParking()
+    {
+        return $this->parking;
+    }
+
+    /**
+     * @param $parking
+     * @return $this
+     */
+    public function setParking($parking)
+    {
+        $this->parking = $parking;
+
+        return $this;
     }
 
     /**
