@@ -39,12 +39,12 @@ class CarsManager
 
         foreach ($cars as $car) {
             $result['data']['results'][] = array(
-                'type' => 'CAR_SHARING',
+                'type' => $car->getServiceType(),
                 'start' => array(
-                    'date' => new \DateTime(),
+                    'date' => '2017-04-15T09:30+01:00',
                     'coordinates' => array(
-                        'latitude' => $car->getParking()->getLatitude(),
-                        'longitude' => $car->getParking()->getLongitude()
+                        'latitude' => floatval($car->getParking()->getLatitude()),
+                        'longitude' => floatval($car->getParking()->getLongitude())
                     ),
                     'address' => array(
                         'streetNumber' => $car->getParking()->getStreetNumber(),
@@ -53,6 +53,63 @@ class CarsManager
                         'postalCode' => $car->getParking()->getPostalCode(),
                         'country' => $car->getParking()->getCountry(),
                         'formattedAddress' => $car->getParking()->getFormattedAddress(),
+                    ),
+                    'parking' => array(
+                        'id' => $car->getParking()->getId(),
+                        'name' => $car->getParking()->getName(),
+                        'coordinates' => array(
+                            'latitude' => floatval($car->getParking()->getLatitude()),
+                            'longitude' => floatval($car->getParking()->getLongitude())
+                        ),
+                        'site' => array(
+                            'id' => $car->getParking()->getSite()->getId(),
+                            'name' => $car->getParking()->getSite()->getName(),
+                            'address' => array(
+                                'streetNumber' => $car->getParking()->getSite()->getStreetNumber(),
+                                'streetName' => $car->getParking()->getSite()->getStreetName(),
+                                'city' => $car->getParking()->getSite()->getCity(),
+                                'postalCode' => $car->getParking()->getSite()->getPostalCode(),
+                                'country' => $car->getParking()->getSite()->getCountry(),
+                                'formattedAddress' => $car->getParking()->getSite()->getFormattedAddress(),
+                            ),
+                        ),
+                        'electricCharging' => $car->getParking()->getElectricCharging()
+                    )
+                ),
+                'end' => array(
+                    'date' => '2017-04-17T09:30+01:00',
+                    'coordinates' => array(
+                        'latitude' => floatval($car->getParking()->getLatitude()),
+                        'longitude' => floatval($car->getParking()->getLongitude())
+                    ),
+                    'address' => array(
+                        'streetNumber' => $car->getParking()->getStreetNumber(),
+                        'streetName' => $car->getParking()->getStreetName(),
+                        'city' => $car->getParking()->getCity(),
+                        'postalCode' => $car->getParking()->getPostalCode(),
+                        'country' => $car->getParking()->getCountry(),
+                        'formattedAddress' => $car->getParking()->getFormattedAddress(),
+                    ),
+                    'parking' => array(
+                        'id' => $car->getParking()->getId(),
+                        'name' => $car->getParking()->getName(),
+                        'coordinates' => array(
+                            'latitude' => floatval($car->getParking()->getLatitude()),
+                            'longitude' => floatval($car->getParking()->getLongitude())
+                        ),
+                        'site' => array(
+                            'id' => $car->getParking()->getSite()->getId(),
+                            'name' => $car->getParking()->getSite()->getName(),
+                            'address' => array(
+                                'streetNumber' => $car->getParking()->getSite()->getStreetNumber(),
+                                'streetName' => $car->getParking()->getSite()->getStreetName(),
+                                'city' => $car->getParking()->getSite()->getCity(),
+                                'postalCode' => $car->getParking()->getSite()->getPostalCode(),
+                                'country' => $car->getParking()->getSite()->getCountry(),
+                                'formattedAddress' => $car->getParking()->getSite()->getFormattedAddress(),
+                            ),
+                        ),
+                        'electricCharging' => $car->getParking()->getElectricCharging()
                     )
                 ),
                 'vehicle' => array(
@@ -68,13 +125,80 @@ class CarsManager
                     'seats' => $car->getSeats(),
                     'category' => $car->getCategory(),
                     'color' => $car->getColor(),
+                    'colorDetails' => array(
+                        'id' => $car->getColorId(),
+                        'code' => $car->getColorCode()
+                    ),
+                    'accessories' => $this->formatAccessorise($car->getAccessories()),
                     'type' => $car->getType(),
                     'statusType' => $car->getStatusType(),
-                    'doorsNumber' => $car->getDoorsNumber()
+                    'doorsNumber' => $car->getDoorsNumber(),
+                    'parking' => array(
+                        'id' => $car->getParking()->getId(),
+                        'name' => $car->getParking()->getName(),
+                        'coordinates' => array(
+                            'latitude' => floatval($car->getParking()->getLatitude()),
+                            'longitude' => floatval($car->getParking()->getLongitude())
+                        ),
+                        'site' => array(
+                            'id' => $car->getParking()->getSite()->getId(),
+                            'name' => $car->getParking()->getSite()->getName(),
+                            'address' => array(
+                                'streetNumber' => $car->getParking()->getSite()->getStreetNumber(),
+                                'streetName' => $car->getParking()->getSite()->getStreetName(),
+                                'city' => $car->getParking()->getSite()->getCity(),
+                                'postalCode' => $car->getParking()->getSite()->getPostalCode(),
+                                'country' => $car->getParking()->getSite()->getCountry(),
+                                'formattedAddress' => $car->getParking()->getSite()->getFormattedAddress(),
+                            ),
+                        ),
+                        'electricCharging' => $car->getParking()->getElectricCharging()
+                    ),
+                ),
+                'reservedSeats' => '1',
+                'carSharingInfo' => array(
+                    'usageType' => $car->getUsageType(),
+                    'cost' => array(
+                        'pricePerKm' => $car->getPricePerKm(),
+                        'estimatedPriceForDuration' => '142',
+                        'freeKmPerDay' => $car->getFreeKmPerDay()
+                    )
                 )
             );
+
+            $result['data']['metadata']['facets']['startParkings'] = array();
+            foreach ($cars as $car) {
+                $parking = array(
+                    'id' => $car->getParking()->getId(),
+                    'name' => $car->getParking()->getName(),
+                    'coordinates' => array(
+                        'latitude' => floatval($car->getParking()->getLatitude()),
+                        'longitude' => floatval($car->getParking()->getLongitude())
+                    ),
+                    'site' => array(
+                        'id' => $car->getParking()->getSite()->getId(),
+                        'name' => $car->getParking()->getSite()->getName(),
+                        'address' => array(
+                            'streetNumber' => $car->getParking()->getSite()->getStreetNumber(),
+                            'streetName' => $car->getParking()->getSite()->getStreetName(),
+                            'city' => $car->getParking()->getSite()->getCity(),
+                            'postalCode' => $car->getParking()->getSite()->getPostalCode(),
+                            'country' => $car->getParking()->getSite()->getCountry(),
+                            'formattedAddress' => $car->getParking()->getSite()->getFormattedAddress(),
+                        ),
+                    ),
+                    'electricCharging' => $car->getParking()->getElectricCharging()
+                );
+                if (!in_array($parking, $result['data']['metadata']['facets']['startParkings'])) {
+                    $result['data']['metadata']['facets']['startParkings'][] = $parking;
+                }
+            }
         }
 
         return $result;
+    }
+
+    private function formatAccessorise($accessorise) {
+        return explode(';', $accessorise);
     }
 }

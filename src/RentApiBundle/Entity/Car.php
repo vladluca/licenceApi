@@ -59,6 +59,13 @@ class Car
      *
      * @ORM\Column(type="string", nullable=true)
      */
+    protected $serviceType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $registrationNumber;
 
     /**
@@ -115,6 +122,20 @@ class Car
      *
      * @ORM\Column(type="string", nullable=true)
      */
+    protected $colorId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $colorCode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $type;
 
     /**
@@ -132,11 +153,172 @@ class Car
     protected $doorsNumber;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $accessories;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $usageType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $pricePerKm;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $freeKmPerDay;
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsageType()
+    {
+        return $this->usageType;
+    }
+
+    /**
+     * @param $usageType
+     * @return $this
+     */
+    public function setUsageType($usageType)
+    {
+        $this->usageType = $usageType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPricePerKm()
+    {
+        return $this->pricePerKm;
+    }
+
+    /**
+     * @param $pricePerKm
+     * @return $this
+     */
+    public function setPricePerKm($pricePerKm)
+    {
+        $this->pricePerKm = $pricePerKm;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFreeKmPerDay()
+    {
+        return $this->freeKmPerDay;
+    }
+
+    /**
+     * @param $freeKmPerDay
+     * @return $this
+     */
+    public function setFreeKmPerDay($freeKmPerDay)
+    {
+        $this->freeKmPerDay = $freeKmPerDay;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccessories()
+    {
+        return $this->accessories;
+    }
+
+    /**
+     * @param $accessories
+     * @return $this
+     */
+    public function setAccessories($accessories)
+    {
+        $this->accessories = $accessories;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
+
+    /**
+     * @param $serviceType
+     * @return $this
+     */
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColorId()
+    {
+        return $this->colorId;
+    }
+
+    /**
+     * @param $colorId
+     * @return $this
+     */
+    public function setColorId($colorId)
+    {
+        $this->colorId = $colorId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColorCode()
+    {
+        return $this->colorCode;
+    }
+
+    /**
+     * @param $colorCode
+     * @return $this
+     */
+    public function setColorCode($colorCode)
+    {
+        $this->colorCode = $colorCode;
+
+        return $this;
     }
 
     /**
