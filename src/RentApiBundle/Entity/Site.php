@@ -88,6 +88,14 @@ class Site
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getParkings()
