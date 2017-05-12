@@ -31,9 +31,17 @@ class CarsManager
         $this->em = $entityManager;
     }
 
-    public function searchCars()
+    public function searchCars($request)
     {
-        $cars = $this->em->getRepository(Car::class)->findAll();
+        $categories = $request->request->get('categories');
+        $doorsNumber = $request->request->get('doorsNumber');
+        $passengers = $request->request->get('passengers');
+        $start = $request->request->get('start');
+        $end = $request->request->get('end');
+        $fuelTypes = $request->request->get('fuelTypes');
+        $transmissionTypes = $request->request->get('transmissionTypes');
+
+        $cars = $this->em->getRepository(Car::class)->searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers);
 
         $result = array();
 
