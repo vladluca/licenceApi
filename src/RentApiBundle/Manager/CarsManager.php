@@ -20,6 +20,8 @@ class CarsManager
 {
     const EARTH_RADIUS = 6371;
     const SEARCH_LOCATION_RADIUS = 50;
+    const ESTIMATED_KM_PER_HOUR = 50;
+    const ESTIMATED_PAUSE_HOURS = 16;
 
     /**
      * @var
@@ -42,6 +44,7 @@ class CarsManager
         $fuelTypes = $request->request->get('fuelTypes');
         $transmissionTypes = $request->request->get('transmissionTypes');
         $start = $request->request->get('start');
+        $end = $request->request->get('end');
 
         $cars = $this->em->getRepository(Car::class)->searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers);
         $cars = $this->filterCarsByLocation($cars, $start);
@@ -173,7 +176,7 @@ class CarsManager
                     'usageType' => $car->getUsageType(),
                     'cost' => array(
                         'pricePerKm' => $car->getPricePerKm(),
-                        'estimatedPriceForDuration' => '142',
+                        'estimatedPriceForDuration' => $this->calculatePriceForDuration($start, $end, $car->getPricePerKm()),
                         'freeKmPerDay' => $car->getFreeKmPerDay()
                     )
                 )
@@ -209,6 +212,22 @@ class CarsManager
         }
 
         return $result;
+    }
+
+    private function calculatePriceForDuration($start, $end, $carPricePerKm) {
+        $startDate = new \DateTime($start['date']);
+        $endDate = new \DateTime($end['date']);
+
+        $daysDiff = $startDate->diff($endDate)->days;
+        $hoursDiff = $startDate->diff($endDate)->h;
+        $hoursDiff = $daysDiff * 24 + $hoursDiff;
+
+        $hoursDiff = $hoursDiff - ($daysDiff * self::ESTIMATED_PAUSE_HOURS);
+
+        $estimatedPriceForDuration = $hoursDiff * self::ESTIMATED_KM_PER_HOUR * floatval($carPricePerKm);
+
+        return $estimatedPriceForDuration;
+
     }
 
     private function filterCarsByLocation($cars, $start) {
