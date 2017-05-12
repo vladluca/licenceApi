@@ -18,6 +18,9 @@ use RentApiBundle\Entity\Car;
  */
 class CarsManager
 {
+    const EARTH_RADIUS = 6371;
+    const SEARCH_LOCATION_RADIUS = 50;
+
     /**
      * @var
      */
@@ -36,14 +39,16 @@ class CarsManager
         $categories = $request->request->get('categories');
         $doorsNumber = $request->request->get('doorsNumber');
         $passengers = $request->request->get('passengers');
-        $start = $request->request->get('start');
-        $end = $request->request->get('end');
         $fuelTypes = $request->request->get('fuelTypes');
         $transmissionTypes = $request->request->get('transmissionTypes');
+        $start = $request->request->get('start');
 
         $cars = $this->em->getRepository(Car::class)->searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers);
+        $cars = $this->filterCarsByLocation($cars, $start);
 
         $result = array();
+        $result['data']['results'] = array();
+        $result['data']['metadata']['facets']['startParkings'] = array();
 
         foreach ($cars as $car) {
             $result['data']['results'][] = array(
@@ -204,6 +209,32 @@ class CarsManager
         }
 
         return $result;
+    }
+
+    private function filterCarsByLocation($cars, $start) {
+        $cars = array_filter($cars, function($car) use ($start) {
+            return $this->isPointInCircle(
+                $start['address']['coordinates']['latitude'],
+                $start['address']['coordinates']['longitude'],
+                $car->getParking()->getLatitude(),
+                $car->getParking()->getLongitude()
+            );
+        });
+
+        return $cars;
+    }
+
+    private function calculateDistanceBetweenPoints($centerX, $centerY, $locationX, $locationY) {
+        $centerX = deg2rad($centerX);
+        $centerY = deg2rad($centerY);
+        $locationX = deg2rad($locationX);
+        $locationY = deg2rad($locationY);
+
+        return acos(sin($centerX) * sin($locationX) + cos($centerX) * cos($locationX) * cos($centerY - $locationY)) * self::EARTH_RADIUS;
+    }
+
+    private function isPointInCircle($centerX, $centerY, $locationX, $locationY) {
+        return $this->calculateDistanceBetweenPoints($centerX, $centerY, floatval($locationX), floatval($locationY)) <= self::SEARCH_LOCATION_RADIUS;
     }
 
     private function formatAccessorise($accessorise) {
