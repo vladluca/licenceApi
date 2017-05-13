@@ -1,0 +1,33 @@
+services:
+    app.admin.site:
+        class: RentApiBundle\Admin\SiteAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Car rental", label: "Sites" }
+        arguments:
+            - ~
+            - RentApiBundle\Entity\Site
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.parking:
+        class: RentApiBundle\Admin\ParkingAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Car rental", label: "Parkings" }
+        arguments:
+            - ~
+            - RentApiBundle\Entity\Parking
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
+
+    app.admin.car:
+        class: RentApiBundle\Admin\CarAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Car rental", label: "Cars" }
+        arguments:
+            - ~
+            - RentApiBundle\Entity\Car
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]

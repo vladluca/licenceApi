@@ -55,7 +55,6 @@ class CarsManager
 
         foreach ($cars as $car) {
             $result['data']['results'][] = array(
-                'type' => $car->getServiceType(),
                 'start' => array(
                     'date' => '2017-04-15T09:30+01:00',
                     'coordinates' => array(
@@ -137,17 +136,10 @@ class CarsManager
                     'fuelType' => $car->getFuelType(),
                     'transmissionType' => $car->getTransmissionType(),
                     'pictureUrl' => $car->getPictureUrl(),
-                    'serviceLevel' => $car->getServiceLevel(),
                     'seats' => $car->getSeats(),
                     'category' => $car->getCategory(),
                     'color' => $car->getColor(),
-                    'colorDetails' => array(
-                        'id' => $car->getColorId(),
-                        'code' => $car->getColorCode()
-                    ),
                     'accessories' => $this->formatAccessorise($car->getAccessories()),
-                    'type' => $car->getType(),
-                    'statusType' => $car->getStatusType(),
                     'doorsNumber' => $car->getDoorsNumber(),
                     'parking' => array(
                         'id' => $car->getParking()->getId(),
@@ -171,9 +163,7 @@ class CarsManager
                         'electricCharging' => $car->getParking()->getElectricCharging()
                     ),
                 ),
-                'reservedSeats' => '1',
                 'carSharingInfo' => array(
-                    'usageType' => $car->getUsageType(),
                     'cost' => array(
                         'pricePerKm' => $car->getPricePerKm(),
                         'estimatedPriceForDuration' => $this->calculatePriceForDuration($start, $end, $car->getPricePerKm()),
