@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Car
  * @ORM\Table(name="cars")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="RentApiBundle\Repository\CarsRepository")
  */
 class Car
 {
