@@ -24,11 +24,9 @@ class CarsController extends Controller
 
     public function postCarsAction(Request $request)
     {
-        $parameter = $request->request->get('parameter');
-
         $carsManager = $this->get('rent_api.cars_manager');
 
-        $cars = $carsManager->searchCars();
+        $cars = $carsManager->searchCars($request);
 
         return new JsonResponse($cars, 200, array(
             'Access-Control-Allow-Origin' => '*'
