@@ -59,13 +59,6 @@ class Car
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $serviceType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     protected $registrationNumber;
 
     /**
@@ -94,13 +87,6 @@ class Car
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $serviceLevel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     protected $seats;
 
     /**
@@ -122,34 +108,6 @@ class Car
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $colorId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $colorCode;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $statusType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     protected $doorsNumber;
 
     /**
@@ -158,13 +116,6 @@ class Car
      * @ORM\Column(type="string", nullable=true)
      */
     protected $accessories;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $usageType;
 
     /**
      * @var string
@@ -186,25 +137,6 @@ class Car
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsageType()
-    {
-        return $this->usageType;
-    }
-
-    /**
-     * @param $usageType
-     * @return $this
-     */
-    public function setUsageType($usageType)
-    {
-        $this->usageType = $usageType;
-
-        return $this;
     }
 
     /**
@@ -260,63 +192,6 @@ class Car
     public function setAccessories($accessories)
     {
         $this->accessories = $accessories;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getServiceType()
-    {
-        return $this->serviceType;
-    }
-
-    /**
-     * @param $serviceType
-     * @return $this
-     */
-    public function setServiceType($serviceType)
-    {
-        $this->serviceType = $serviceType;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getColorId()
-    {
-        return $this->colorId;
-    }
-
-    /**
-     * @param $colorId
-     * @return $this
-     */
-    public function setColorId($colorId)
-    {
-        $this->colorId = $colorId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getColorCode()
-    {
-        return $this->colorCode;
-    }
-
-    /**
-     * @param $colorCode
-     * @return $this
-     */
-    public function setColorCode($colorCode)
-    {
-        $this->colorCode = $colorCode;
 
         return $this;
     }
@@ -455,22 +330,6 @@ class Car
     /**
      * @return string
      */
-    public function getServiceLevel()
-    {
-        return $this->serviceLevel;
-    }
-
-    /**
-     * @param string $serviceLevel
-     */
-    public function setServiceLevel($serviceLevel)
-    {
-        $this->serviceLevel = $serviceLevel;
-    }
-
-    /**
-     * @return string
-     */
     public function getSeats()
     {
         return $this->seats;
@@ -519,38 +378,6 @@ class Car
     /**
      * @return string
      */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatusType()
-    {
-        return $this->statusType;
-    }
-
-    /**
-     * @param string $statusType
-     */
-    public function setStatusType($statusType)
-    {
-        $this->statusType = $statusType;
-    }
-
-    /**
-     * @return string
-     */
     public function getDoorsNumber()
     {
         return $this->doorsNumber;
@@ -562,5 +389,10 @@ class Car
     public function setDoorsNumber($doorsNumber)
     {
         $this->doorsNumber = $doorsNumber;
+    }
+
+    public function __toString()
+    {
+        return $this->getBrand() . ' ' . $this->getModel();
     }
 }
