@@ -20,13 +20,27 @@ class SiteAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('streetNumber')
-            ->add('streetName')
-            ->add('city')
-            ->add('postalCode')
-            ->add('country')
-            ->add('formattedAddress')
+            ->add('name', null, array(
+                'required' => true
+            ))
+            ->add('streetNumber', null, array(
+                'required' => true
+            ))
+            ->add('streetName', null, array(
+                'required' => true
+            ))
+            ->add('city', null, array(
+                'required' => true
+            ))
+            ->add('postalCode', null, array(
+                'required' => true
+            ))
+            ->add('country', null, array(
+                'required' => true
+            ))
+            ->add('formattedAddress', null, array(
+                'required' => true
+            ))
         ;
     }
 
