@@ -56,7 +56,7 @@ class CarsManager
         foreach ($cars as $car) {
             $result['data']['results'][] = array(
                 'start' => array(
-                    'date' => '2017-04-15T09:30+01:00',
+                    'date' => $start['date'],
                     'coordinates' => array(
                         'latitude' => floatval($car->getParking()->getLatitude()),
                         'longitude' => floatval($car->getParking()->getLongitude())
@@ -92,7 +92,7 @@ class CarsManager
                     )
                 ),
                 'end' => array(
-                    'date' => '2017-04-17T09:30+01:00',
+                    'date' => $end['date'],
                     'coordinates' => array(
                         'latitude' => floatval($car->getParking()->getLatitude()),
                         'longitude' => floatval($car->getParking()->getLongitude())

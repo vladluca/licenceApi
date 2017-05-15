@@ -19,11 +19,21 @@ class CarAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('parking')
-            ->add('brand')
-            ->add('model')
-            ->add('version')
-            ->add('registrationNumber')
+            ->add('parking', null, array(
+                'required' => true
+            ))
+            ->add('brand', null, array(
+                'required' => true
+            ))
+            ->add('model', null, array(
+                'required' => true
+            ))
+            ->add('version', null, array(
+                'required' => true
+            ))
+            ->add('registrationNumber', null, array(
+                'required' => true
+            ))
             ->add('fuelType', 'choice', array(
                 'choices' => array(
                     'Diesel' => 'Diesel',
@@ -37,8 +47,12 @@ class CarAdmin extends AbstractAdmin
                     'Manual' => 'Manual'
                 )
             ))
-            ->add('pictureUrl')
-            ->add('seats')
+            ->add('pictureUrl', null, array(
+                'required' => true
+            ))
+            ->add('seats', null, array(
+                'required' => true
+            ))
             ->add('category', 'choice', array(
                     'choices' => array(
                     'urban' => 'urban',
@@ -47,11 +61,21 @@ class CarAdmin extends AbstractAdmin
                     'utilities' => 'utilities'
                 )
             ))
-            ->add('color')
-            ->add('doorsNumber')
-            ->add('accessories')
-            ->add('pricePerKm')
-            ->add('freeKmPerDay')
+            ->add('color', null, array(
+                'required' => true
+            ))
+            ->add('doorsNumber', null, array(
+                'required' => true
+            ))
+            ->add('accessories', null, array(
+                'required' => true
+            ))
+            ->add('pricePerKm', null, array(
+                'required' => true
+            ))
+            ->add('freeKmPerDay', null, array(
+                'required' => true
+            ))
         ;
     }
 
