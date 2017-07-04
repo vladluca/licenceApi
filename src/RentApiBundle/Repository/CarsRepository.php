@@ -34,7 +34,7 @@ class CarsRepository extends EntityRepository
     const DEFAULT_DOORS_NUMBER = 0;
     const DEFAULT_PASSENGERS_NUMBER = 0;
 
-    public function searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers) {
+    public function searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers, $startParkingId) {
 
         $queryBuilder = $this->createQueryBuilder('car');
 
@@ -49,6 +49,12 @@ class CarsRepository extends EntityRepository
             ->setParameter('transmissionTypes', $transmissionTypes ? $transmissionTypes : self::$DEFAULT_TRANSMISSION_TYPES)
             ->setParameter('doorsNumber', $doorsNumber ? $doorsNumber : self::DEFAULT_DOORS_NUMBER)
             ->setParameter('passengers', $passengers ? $passengers : self::DEFAULT_PASSENGERS_NUMBER);
+
+        if ($startParkingId) {
+            $queryBuilder
+                ->andWhere('car.parking = :parkingId')
+                ->setParameter('parkingId', $startParkingId);
+        }
 
         return $queryBuilder->getQuery()->getResult();
     }

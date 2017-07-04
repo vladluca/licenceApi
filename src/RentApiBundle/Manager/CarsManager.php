@@ -45,8 +45,9 @@ class CarsManager
         $transmissionTypes = $request->request->get('transmissionTypes');
         $start = $request->request->get('start');
         $end = $request->request->get('end');
+        $startParkingId = $request->get('startParkingId');
 
-        $cars = $this->em->getRepository(Car::class)->searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers);
+        $cars = $this->em->getRepository(Car::class)->searchCars($categories, $fuelTypes, $transmissionTypes, $doorsNumber, $passengers, $startParkingId);
         $cars = $this->filterCarsByLocation($cars, $start);
 
         $result = array();
